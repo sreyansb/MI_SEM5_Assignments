@@ -30,8 +30,9 @@ def get_entropy_of_dataset(df):
             di[i]=0
         di[i]+=1
         total+=1
-    for i in di:
-        entropy+=-((di[i]/total)*np.log2(di[i]/total))          
+    if total!=0:
+        for i in di:
+            entropy+=-((di[i]/total)*np.log2(di[i]/total))          
     return entropy
 
 '''Return entropy of the attribute provided as parameter'''
