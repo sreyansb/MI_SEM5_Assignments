@@ -32,7 +32,9 @@ def get_entropy_of_dataset(df):
         total+=1
     if total!=0:
         for i in di:
-            entropy+=-((di[i]/total)*np.log2(di[i]/total))          
+            k=di[i]/total
+            if k!=0:
+                entropy+=-((k)*np.log2(k))          
     return entropy
 
 '''Return entropy of the attribute provided as parameter'''
@@ -77,7 +79,7 @@ def get_information_gain(df,attribute):
 	information_gain = 0
 	datasetentropy=get_entropy_of_dataset(df)
 	attributeentropy=get_entropy_of_attribute(df,attribute)
-	information_gain=datasetentropy-attributeentropy
+	information_gain=abs(datasetentropy-attributeentropy)
 	return information_gain
 
 ''' Returns Attribute with highest info gain'''  
