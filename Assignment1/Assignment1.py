@@ -63,10 +63,11 @@ def get_entropy_of_attribute(df,attribute):
         total=0
         for j in di[i]:
             total+=di[i][j]
-        for j in s:
-            if di[i][j]!=0:
-                k=di[i][j]/total
-                entropy_of_attribute+=-(k)*np.log2(k)*(total/totalfinal)
+        if total!=0:
+            for j in s:
+                if di[i][j]!=0:
+                    k=di[i][j]/total
+                    entropy_of_attribute+=-(k)*np.log2(k)*(total/totalfinal)
     return abs(entropy_of_attribute)
 
 '''Return Information Gain of the attribute provided as parameter'''
