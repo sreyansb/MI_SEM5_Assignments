@@ -10,6 +10,8 @@ import random
 def get_all_values_of_final_output(df):
     s=set()
     for i in df.iloc[:,-1]:
+        if i==np.nan:
+            continue
         if i not in s:
             s.add(i)
     return s
@@ -26,13 +28,16 @@ def get_entropy_of_dataset(df):
     di={}
     total=0
     for i in df.iloc[:,-1]:#all the rows for the last column in the dataframe
+        if i==np.nan:
+            continue
         if i not in di:
             di[i]=0
         di[i]+=1
         total+=1
     if total!=0:
         for i in di:
-            entropy+=-((di[i]/total)*np.log2(di[i]/total))          
+            k=di[i]/total
+            entropy+=-(k*np.log2(k))          
     return entropy
 
 '''Return entropy of the attribute provided as parameter'''
@@ -52,7 +57,9 @@ def get_entropy_of_attribute(df,attribute):
     totalfinal=0
     k=df[attribute]
     s=get_all_values_of_final_output(df)
-    for i in range(len(k)):
+    for i in range(len(k)): 
+        if k[i]==np.nan:
+            continue
         if k[i] not in di:
             di[k[i]]={}
             for all_values in s:
