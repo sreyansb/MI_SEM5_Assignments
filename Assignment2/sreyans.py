@@ -33,6 +33,7 @@ def tri_traversal(cost, heuristic, start_point, goals):
                 if cost[k[1]][i]!=-1 and i not in visited and cost[k[1]][i]+k[0]<costs[i]:
                     costs[i]=cost[k[1]][i]+k[0]
                     heappush(vertheap,(costs[i],i))
+                    print(vertheap)
                     parents[i]=k[1]
         return (parents,costs[child])
 
@@ -116,5 +117,6 @@ cost=[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0]]
 
 heuristic = [0, 5, 7, 3, 4, 6, 0, 0, 6, 5, 0]
-
-print(tri_traversal(cost,heuristic,1,[6,7,10]))
+cost=[[0,0,0,0,0,0,0],[0,0,7,-1,-1,-1,5],[0,-1,0,3,-1,-1,-1],[0,-1,-1,0,2,-1,-1],\
+      [0,-1,-1,-1,0,1,-1],[0,-1,-1,-1,-1,-1,-1],[0,-1,-1,-1,-1,100,0]]
+print(tri_traversal(cost,heuristic,1,[5,4]))
