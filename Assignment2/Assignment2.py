@@ -18,7 +18,7 @@ def DFS_Traversal(cost,start_point,goals):
     l=dfs(start_point,[])
     return l
 
-def UCS_Traversal():
+def UCS_Traversal(cost, start_point, goals):
 	frontier = []
 	explore = []
 	e_nodes = [] 
@@ -52,8 +52,7 @@ def UCS_Traversal():
 	ucs(start_point)
 	#return goal_path[0]
 	#return goal_path
-	l = goal_path[0]
-	return l
+	return goal_path[0]
 
 def A_star_Traversal():
     l = []
@@ -63,7 +62,7 @@ def tri_traversal(cost, heuristic, start_point, goals):
     l = []
 
     t1 = DFS_Traversal(cost,start_point,goals)
-    t2 = UCS_Traversal()
+    t2 = UCS_Traversal(cost, start_point, goals)
     t3 = A_star_Traversal()
 
     l.append(t1)
