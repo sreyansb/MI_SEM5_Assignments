@@ -33,7 +33,7 @@ def UCS_Traversal(cost, start_point, goals):
 			#goal_dist.append(frontier[0][0])
 
 		if start_point not in e_nodes:
-			for i in range(1,11):
+			for i in range(1,len(cost)):
 				if (cost[start_point][i] != -1) and (cost[start_point][i] != 0):
 					ele_cost = cost[start_point][i] + frontier[0][0]
 					dist = []
