@@ -19,7 +19,7 @@ def DFS_Traversal(cost,start_point,goals):
     return l
 
 def UCS_Traversal():
-    frontier = []
+	frontier = []
 	explore = []
 	e_nodes = [] 
 	frontier.append([0,start_point,[1]])
@@ -43,7 +43,7 @@ def UCS_Traversal():
 					frontier.append([ele_cost,i,dist])
 			explore.append(frontier[0])
 			e_nodes.append(frontier[0][1])
-		
+
 		frontier.pop(0)
 		frontier.sort()
 		if len(frontier) == 0:
@@ -52,8 +52,8 @@ def UCS_Traversal():
 	ucs(start_point)
 	#return goal_path[0]
 	#return goal_path
-    l = goal_path[0]
-    return l
+	l = goal_path[0]
+	return l
 
 def A_star_Traversal():
     l = []
