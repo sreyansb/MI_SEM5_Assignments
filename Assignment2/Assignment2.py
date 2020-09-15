@@ -19,7 +19,40 @@ def DFS_Traversal(cost,start_point,goals):
     return l
 
 def UCS_Traversal():
-    l = []
+    frontier = []
+	explore = []
+	e_nodes = [] 
+	frontier.append([0,start_point,[1]])
+	explored_goals = []
+	goal_path = []
+	#goal_dist = []
+	def ucs(start_point):	
+		if (start_point in goals) and (start_point not in explored_goals):
+			explored_goals.append(start_point)
+			goal_path.append(frontier[0][2])
+			#goal_dist.append(frontier[0][0])
+
+		if start_point not in e_nodes:
+			for i in range(1,11):
+				if (cost[start_point][i] != -1) and (cost[start_point][i] != 0):
+					ele_cost = cost[start_point][i] + frontier[0][0]
+					dist = []
+					for j in frontier[0][2]:
+						dist.append(j)
+					dist.append(i)
+					frontier.append([ele_cost,i,dist])
+			explore.append(frontier[0])
+			e_nodes.append(frontier[0][1])
+		
+		frontier.pop(0)
+		frontier.sort()
+		if len(frontier) == 0:
+			return
+		ucs(frontier[0][1])
+	ucs(start_point)
+	#return goal_path[0]
+	#return goal_path
+    l = goal_path[0]
     return l
 
 def A_star_Traversal():
