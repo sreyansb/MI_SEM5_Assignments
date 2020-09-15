@@ -11,13 +11,12 @@ def tri_traversal(cost, heuristic, start_point, goals):
         visited.append(cur_vertex)
         for i in range(1,n):
             if i not in visited and cost[cur_vertex][i]!=-1:
-                k=dfs(i,cur_goal,visited)
+                k=dfs(i,visited)
                 if k:
                     return k
                 visited.pop()
-                
-        
-    
+        visited.pop()
+                       
     def ucs(child):
         costs=[float('inf') for i in range(n)]
         costs[start_point]=0
@@ -35,9 +34,9 @@ def tri_traversal(cost, heuristic, start_point, goals):
                     costs[i]=cost[k[1]][i]+k[0]
                     heappush(vertheap,(costs[i],i))
                     parents[i]=k[1]
-        return parents
+        return (parents,costs[child])
 
-    def astar(child):
+    def astar(child):#expansion uses heuristic and heuristic is not used anywhere else
         costs=[float('inf') for i in range(n)]
         costs[start_point]=0
         vertheap=[]
@@ -54,44 +53,49 @@ def tri_traversal(cost, heuristic, start_point, goals):
                     costs[i]=cost[k[1]][i]+k[0]
                     heappush(vertheap,(costs[i],i))
                     parents[i]=k[1]
-        return parents
+        return (parents,costs[child])
                 
     #dfs call
     l = []     
     t1=[]
-    t1=dfs(cost,start_point,goals)
-    
-        
+    t1=dfs(start_point,[])
+      
     #ucs call
     t2=[]
+    mincost=float('inf')
+    mini=[]
     for i in goals:
         k=ucs(i)
-        ans=[]
-        j=i
-        while(j!=start_point):
-            ans.append(j)
-            j=k[j]
-        ans.append(start_point)
-        ans.reverse()
-        t2.append(ans)
-    print(t2)
+        if mincost>k[1]:
+            ans=[]
+            j=i
+            while(j!=start_point):
+                ans.append(j)
+                j=k[0][j]
+            ans.append(start_point)
+            ans.reverse()
+            mini=ans.copy()
+            mincost=k[1]
+    t2.append(mini)
+    print("t2",t2)
     
-            
-
-    # t1 <= DFS_Traversal
-    # t2 <= UCS_Traversal
-    # t3 <= A_star_Traversal
+    #astar call
     t3=[]
+    mini=[]
+    mincost=float('inf')
     for i in goals:
         k=astar(i)
         ans=[]
         j=i
-        while(j!=start_point):
-            ans.append(j)
-            j=k[j]
-        ans.append(start_point)
-        ans.reverse()
-        t3.append(ans)
+        if mincost>k[1]:
+            while(j!=start_point):
+                ans.append(j)
+                j=k[0][j]
+            ans.append(start_point)
+            ans.reverse()
+            mini=ans
+            mincost=k[1]
+    t3.append(mini)
     print("t3",t3)
     
     l.append(t1)
