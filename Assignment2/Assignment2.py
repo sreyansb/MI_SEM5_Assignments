@@ -1,3 +1,50 @@
+def DFS_Traversal(cost,start_point,goals):
+    l = []
+    n=len(cost)
+    def dfs(cur_vertex,visited):
+        if cur_vertex in visited:
+            return []
+        if cur_vertex in goals:
+            return visited+[cur_vertex]
+        visited.append(cur_vertex)
+        for i in range(1,n):
+            if i not in visited and cost[cur_vertex][i]!=-1:
+                k=dfs(i,visited)
+                if k:
+                    return k
+                visited.pop()
+        if not(visited):
+            print(visited)
+        else:
+            visited.pop()
+    l=dfs(start_point,[])
+    #print(l)
+    return l
+
+def UCS_Traversal(cost,start_point,goals):
+    l = []
+    return l
+
+def A_star_Traversal():
+    l = []
+    return l
+
+def tri_traversal(cost, heuristic, start_point, goals):
+    l = []
+
+    t1 = DFS_Traversal(cost,start_point,goals)
+    t2 = UCS_Traversal()
+    t3 = A_star_Traversal()
+
+    l.append(t1)
+    l.append(t2)
+    l.append(t3)
+    return l
+
+
+
+
+
 '''
 Function tri_traversal - performs DFS, UCS and A* traversals and returns the path for each of these traversals 
 
@@ -20,33 +67,3 @@ Return : A list containing a list of all traversals [[],[],[]]
 NOTE : you are allowed to write other helper functions that you can call in the given fucntion
 '''
 
-def tri_traversal(cost, heuristic, start_point, goals):
-    l = []
-    n=len(cost)
-    def dfs(cur_vertex,cur_goal,visited):
-        if cur_vertex in visited:
-            return []
-        if cur_vertex==cur_goal:
-            return visited+[cur_goal]
-        visited.append(cur_vertex)
-        for i in range(1,n):
-            if i not in visited and cost[cur_vertex][i]!=-1:
-                k=dfs(i,cur_goal,visited)
-                if k:
-                    return k
-                visited.pop()
-                
-    t1=[]
-    for i in goals:
-        k=dfs(start_point,i,[])
-        t1.append(k)
-
-    # t1 <= DFS_Traversal
-    # t2 <= UCS_Traversal
-    # t3 <= A_star_Traversal
-    t2=[]
-    t3=[]
-    l.append(t1)
-    l.append(t2)
-    l.append(t3)
-    return l
