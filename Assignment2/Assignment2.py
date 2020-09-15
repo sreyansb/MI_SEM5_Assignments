@@ -13,15 +13,12 @@ def DFS_Traversal(cost,start_point,goals):
                 if k:
                     return k
                 visited.pop()
-        if not(visited):
-            print(visited)
-        else:
+        if visited:
             visited.pop()
     l=dfs(start_point,[])
-    #print(l)
     return l
 
-def UCS_Traversal(cost,start_point,goals):
+def UCS_Traversal():
     l = []
     return l
 
