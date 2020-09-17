@@ -54,16 +54,92 @@ def UCS_Traversal(cost, start_point, goals):
 	#return goal_path
 	return goal_path[0]
 
-def A_star_Traversal():
+
+def constructPath(came_from,current):
+    path = []
+    while current in came_from:
+        path.insert(0,current)
+        #print(path)
+        current = came_from[current] 
+    return [current] + path
+
+def getNeighbours(cost,q):
+    neighbours = []
+    for i in range(1,len(cost[q])):
+        if cost[q][i]>-1 and i!=q:
+            neighbours.append(i)
+    return neighbours
+
+    
+def getCost(path,cost):
+    total_cost=0
+    for i in range(0,len(path)-1):
+        c = cost[path[i]][path[i+1]]
+        total_cost += c
+    #print('cost of ',path,total_cost)    
+    return total_cost
+
+
+def A_star_Traversal_For_One_Goal(cost, heuristic, start_point, goal):
+    
     l = []
-    return l
+    #print('In astar')
+    g_score={i:float('inf') for i in range(1,len(cost))}
+    g_score[start_point]=0
+    
+    f_score={i:float('inf') for i in range(1,len(cost))}
+    f_score[start_point]=heuristic[start_point]
+    
+    open_set = {start_point}
+    
+    current = start_point 
+    came_from = {}
+
+    
+    while len(open_set)>0:
+        q = min(open_set,key = lambda x:f_score[x])
+        #print('open_set',open_set)
+        #print('came from',came_from)
+        #print('q:'+str(q))
+        open_set.remove(q)
+        q_neighbours = getNeighbours(cost,q)
+        #print('Neighbours of ' + str(q) + ':',q_neighbours)
+        for neighbour in q_neighbours:
+            if neighbour == goal:
+                l = constructPath(came_from,q)
+                #print(l + [goal])
+                return l + [neighbour]
+            neighbour_g = g_score[q] + cost[q][neighbour]
+            if neighbour_g < g_score[neighbour]:
+                came_from[neighbour] = q
+                g_score[neighbour] = neighbour_g
+                f_score[neighbour] = neighbour_g + heuristic[neighbour]
+                if neighbour not in open_set:
+                    open_set.add(neighbour) 
+   
+    return []
+
+
+def A_star_Traversal(cost, heuristic, start_point, goals):
+    min_cost = float('inf')
+    for i in range(len(goals)):
+        path = A_star_Traversal_For_One_Goal(cost,heuristic,start_point,goals[i])
+        if path==[]:
+            continue
+        #print(min_path)
+        path_cost = getCost(path,cost)
+        if path_cost<min_cost:
+            min_cost=path_cost
+            min_path=path
+    return min_path
+
 
 def tri_traversal(cost, heuristic, start_point, goals):
     l = []
 
     t1 = DFS_Traversal(cost,start_point,goals)
     t2 = UCS_Traversal(cost, start_point, goals)
-    t3 = A_star_Traversal()
+    t3 = A_star_Traversal(cost, heuristic, start_point, goals)
 
     l.append(t1)
     l.append(t2)
