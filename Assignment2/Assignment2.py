@@ -12,10 +12,11 @@ def DFS_Traversal(cost,start_point,goals):
                 k=dfs(i,visited)
                 if k:
                     return k
-                visited.pop()
         if visited:
             visited.pop()
     l=dfs(start_point,[])
+    if not(l):
+        l=[]
     return l
 
 def UCS_Traversal(cost, start_point, goals):
@@ -121,6 +122,7 @@ def A_star_Traversal_For_One_Goal(cost, heuristic, start_point, goal):
 
 def A_star_Traversal(cost, heuristic, start_point, goals):
     min_cost = float('inf')
+    min_path = []
     for i in range(len(goals)):
         path = A_star_Traversal_For_One_Goal(cost,heuristic,start_point,goals[i])
         if path==[]:

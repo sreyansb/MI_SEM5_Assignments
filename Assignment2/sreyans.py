@@ -134,8 +134,9 @@ def tri_traversal(cost, heuristic, start_point, goals):
                 k=dfs(i,visited)
                 if k:
                     return k
-                visited.pop()
-        visited.pop()
+                #visited.pop()
+        if visited:
+            visited.pop()
                        
     def ucs(child):
         costs=[float('inf') for i in range(n)]
@@ -180,6 +181,8 @@ def tri_traversal(cost, heuristic, start_point, goals):
     l = []     
     t1=[]
     t1=dfs(start_point,[])
+    if not(t1):
+        t1=[]
       
     #ucs call
     t2=[]
@@ -223,7 +226,7 @@ def tri_traversal(cost, heuristic, start_point, goals):
     l.append(t2)
     l.append(t3)
     return l
-
+'''
 cost=[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
             [0, 0, 5, 9, -1, 6, -1, -1, -1, -1, 1],
             [0, -1, 0, 3, -1, -1, 9, -1, -1, -1, -1], 
@@ -237,9 +240,8 @@ cost=[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0]]
 
 heuristic = [0, 5, 7, 3, 4, 6, 0, 0, 6, 5, 0]
-'''
 cost=[[0,0,0,0,0,0,0],[0,0,7,-1,-1,-1,5],[0,-1,0,3,-1,-1,-1],[0,-1,-1,0,2,-1,-1],\
       [0,-1,-1,-1,0,1,-1],[0,-1,-1,-1,-1,-1,-1],[0,-1,-1,-1,-1,100,0]]
-'''
 print(tri_traversal(cost,heuristic,1,[6,7,10]))
 print(A_star_Traversal(cost, heuristic, 1, [6,7,10]))
+'''
