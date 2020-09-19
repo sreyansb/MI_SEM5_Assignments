@@ -25,12 +25,10 @@ def UCS_Traversal(cost, start_point, goals):
 	frontier.append([0,start_point,[1]])
 	explored_goals = []
 	goal_path = []
-	#goal_dist = []
 	def ucs(start_point):	
 		if (start_point in goals) and (start_point not in explored_goals):
 			explored_goals.append(start_point)
 			goal_path.append(frontier[0][2])
-			#goal_dist.append(frontier[0][0])
 
 		if start_point not in e_nodes:
 			for i in range(1,len(cost)):
@@ -50,9 +48,10 @@ def UCS_Traversal(cost, start_point, goals):
 			return
 		ucs(frontier[0][1])
 	ucs(start_point)
-	#return goal_path[0]
-	#return goal_path
-	return goal_path[0]
+	if len(goal_path)>0:
+		return goal_path[0]
+	else:
+		return goal_path
 
 
 def constructPath(came_from,current):
