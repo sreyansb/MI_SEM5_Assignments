@@ -70,27 +70,28 @@ def getNeighbours(cost,q):
             neighbours.append(i)
     return neighbours
 
-    
+"""    
 def getCost(path,cost):
     total_cost=0
     for i in range(0,len(path)-1):
         c = cost[path[i]][path[i+1]]
         total_cost += c
     #print('cost of ',path,total_cost)    
-    return total_cost
+    return total_cost"""
 
 def getMin(open_list,f_score):
     sorted_list = sorted(open_list)
-    minimum_node = open_list[0]
+    #print(sorted_list)
+    minimum_node = sorted_list[0]
     minimum_f = f_score[minimum_node]
     for i in range(1,len(sorted_list)):
         if(f_score[sorted_list[i]]<minimum_f):
-            minimum_node = open_list[i]
+            minimum_node = sorted_list[i]
             minimum_f = f_score[sorted_list[i]]
     return minimum_node
 
-def A_star_Traversal_For_One_Goal(cost, heuristic, start_point, goal):
-    if start_point==goal:
+def A_star_Traversal(cost, heuristic, start_point, goals):
+    if start_point in goals:
         return [start_point]
     l = []
     #print('In astar')
@@ -100,23 +101,24 @@ def A_star_Traversal_For_One_Goal(cost, heuristic, start_point, goal):
     f_score={i:float('inf') for i in range(1,len(cost))}
     f_score[start_point]=heuristic[start_point]
     
-    open_set = [start_point]
+    open_list = [start_point]
     
     current = start_point 
     came_from = {}
 
     
-    while len(open_set)>0:
+    while len(open_list)>0:
         #print(f_score)
-        q = getMin(open_set,f_score)
-        if q == goal:
+        q = getMin(open_list,f_score)
+        #print(f_score,q, open_list)
+        if q in goals:
             l = constructPath(came_from,q)
             #print(l + [goal])
             return l
-    #print('open_set',open_set)
+    #print('open_list',open_list)
         #print('came from',came_from)
         #print('q:'+str(q))
-        open_set.remove(q)
+        open_list.remove(q)
         q_neighbours = getNeighbours(cost,q)
         #print('Neighbours of ' + str(q) + ':',q_neighbours)
         for neighbour in q_neighbours:
@@ -126,13 +128,14 @@ def A_star_Traversal_For_One_Goal(cost, heuristic, start_point, goal):
                 came_from[neighbour] = q
                 g_score[neighbour] = neighbour_g
                 f_score[neighbour] = neighbour_g + heuristic[neighbour]
-                if neighbour not in open_set:
-                    open_set.append(neighbour) 
+                if neighbour not in open_list:
+                    open_list.append(neighbour) 
+          
    
     return []
 
 
-def A_star_Traversal(cost, heuristic, start_point, goals):
+"""def A_star_Traversal(cost, heuristic, start_point, goals):
     min_cost = float('inf')
     min_path = []
     for i in range(len(goals)):
@@ -145,7 +148,7 @@ def A_star_Traversal(cost, heuristic, start_point, goals):
         if path_cost<min_cost:
             min_cost=path_cost
             min_path=path
-    return min_path
+    return min_path"""
 
 
 
