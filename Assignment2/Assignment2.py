@@ -164,8 +164,15 @@ def tri_traversal(cost, heuristic, start_point, goals):
     l.append(t3)
     return l
 
+"""
+cost = [[0, 0, 0, 0],
+            [0, 0, 5, 10],
+            [0, -1, 0, 5],
+            [0, -1, -1, 0]]
+heuristic = [0, 0, 0, 0]
 
-
+print(UCS_Traversal(cost, 1, [3]))
+"""
 
 
 '''
