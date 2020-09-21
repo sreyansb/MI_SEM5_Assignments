@@ -17,6 +17,7 @@ def DFS_Traversal(cost,start_point,goals):
     l=dfs(start_point,[])
     if not(l):
         l=[]
+    #print(l)
     return l
 
 def UCS_Traversal(cost, start_point, goals):
