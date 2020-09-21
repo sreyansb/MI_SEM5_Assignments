@@ -8,7 +8,7 @@ def DFS_Traversal(cost,start_point,goals):
             return visited+[cur_vertex]
         visited.append(cur_vertex)
         for i in range(1,n):
-            if i not in visited and cost[cur_vertex][i]!=-1:
+            if i not in visited and cost[cur_vertex][i]>0:
                 k=dfs(i,visited)
                 if k:
                     return k
@@ -125,7 +125,7 @@ def A_star_Traversal(cost, heuristic, start_point, goals):
         for neighbour in q_neighbours:
             neighbour_g = g_score[q] + cost[q][neighbour]
             neighbour_f = neighbour_g + heuristic[neighbour]
-            if neighbour_f < f_score[neighbour]:
+            if neighbour_f <= f_score[neighbour]:
                 came_from[neighbour] = q
                 g_score[neighbour] = neighbour_g
                 f_score[neighbour] = neighbour_g + heuristic[neighbour]
